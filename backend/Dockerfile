@@ -1,15 +1,7 @@
 FROM node:20-alpine
-
 WORKDIR /app
-
-COPY package*.json ./
-RUN npm ci
-
-COPY prisma ./prisma/
-RUN npx prisma generate
-
+COPY package.json ./
+RUN npm install
 COPY . .
-
 EXPOSE 4000 4001
-
-CMD ["npm", "run", "dev"]
+CMD sh -c "npx prisma generate && npx prisma db push && npm run dev"
