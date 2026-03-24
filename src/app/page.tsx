@@ -33,9 +33,9 @@ export default function Home() {
   useEffect(() => { if (Object.keys(prices).length > 0) updateMarketPrices(prices); }, [prices, updateMarketPrices]);
   useEffect(() => { if (!selectedMarket && markets.length > 0) setSelectedMarket(markets[0]); }, [selectedMarket, markets, setSelectedMarket]);
   useEffect(() => { setConnected(isConnected); }, [isConnected, setConnected]);
-  useEffect(() => { if (currentPage !== "trade") setShowLanding(false); }, [currentPage]);
+  useEffect(() => { if (currentPage !== "trade" || isConnected) setShowLanding(false); }, [currentPage, isConnected]);
 
-  if (showLanding && currentPage === "trade" && !isConnected) return <LandingPage />;
+  if (showLanding && !isConnected) return <LandingPage />;
 
   return (
     <div className="w-screen h-screen flex flex-col overflow-hidden bg-bg-primary">
